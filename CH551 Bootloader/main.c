@@ -69,9 +69,9 @@ __code uint8_t CfgDesc[] ={
 unsigned char  __code LangDes[]={0x04,0x03,0x09,0x04};
 unsigned char  __code SerDes[]={
 				0x14,0x03,
-				'2',0x00,'0',0x00,'1',0x00,'8',0x00,'-',0x00,
-				'3',0x00,'-',0x00,
-				'1',0x00,'7',0x00
+				'v',0x00,'1',0x00,' ',0x00,' ',0x00,' ',0x00,
+				' ',0x00,' ',0x00,
+				' ',0x00,' ',0x00
 				};
 
 
@@ -83,8 +83,8 @@ unsigned char  __code Prod_Des[]={
 
 unsigned char  __code Manuf_Des[]={
 	0x18,0x03,
-	'L', 0x00, 'u', 0x00, 'i', 0x00,'s',0x00,' ', 0x00, 'P', 0x00, 'a', 0x00, 'b', 0x00, 
-	'l', 0x00, 'o', 0x00, ' ', 0x00
+	'R', 0x00, 'O', 0x00, 'C', 0x00,'K',0x00,'E', 0x00, 'T', 0x00, 'F', 0x00, 'P', 0x00, 
+	'G', 0x00, 'A', 0x00, ' ', 0x00
 };
 
 __xdata uint8_t LineCoding[7]={0x00,0xe1,0x00,0x00,0x00,0x00,0x08};   
@@ -653,7 +653,7 @@ void uart_poll(){
 			}else if (state == 0 && uart_data == 'B') {
 				jump_to_bootloader();
 			}else if (state == 0 && uart_data == 'V') {
-				printf("RocketFPGA Bootloader V0.5.0\n");
+				printf("RocketFPGA Bootloader V0.5.1\n");
 			}
 			// Memory offset operations state machine
 			else if (state == 0 && uart_data == 'M') {
