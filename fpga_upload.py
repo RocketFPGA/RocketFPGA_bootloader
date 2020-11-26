@@ -46,10 +46,11 @@ def readBytes(ser,l, offset):
     value = []
     i = 0
     while i < l:
-        d = ser.read(ser.in_waiting)
-        i = i + len(d)
-        value.extend(d)
-        print("Reading: {:.2f}%".format(100*i/l),end="\r")
+        if ser.in_waiting:
+            d = ser.read(ser.in_waiting)
+            i = i + len(d)
+            value.extend(d)
+            print("Reading: {:.2f}%".format(100*i/l),end="\r")
 
     return value
 

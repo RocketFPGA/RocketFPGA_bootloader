@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 import serial
 import time
 import argparse
@@ -25,7 +25,7 @@ if __name__ == '__main__':
     # --------------------------------------------
 
     try:
-        ser = serial.Serial(args.port,args.baudrate)
+        ser = serial.Serial(args.port, args.baudrate, timeout=None)
         ser.rts = 0
     except serial.serialutil.SerialException:
         print("The port '{}' could not be oppended at {} bauds".format(port, baudrate))
@@ -65,10 +65,11 @@ if __name__ == '__main__':
     i = 0
     start_time = time.time()
     while i < MEMORY_LENGTH:
-        d = ser.read(ser.in_waiting)
-        i = i + len(d)
-        mem.extend(d)
-        print("Reading: {:.2f}%".format(100*i/MEMORY_LENGTH),end="\r")
+        if ser.in_waiting:
+            d = ser.read(ser.in_waiting)
+            i = i + len(d)
+            mem.extend(d)
+            print("Reading: {:.2f}%".format(100*i/MEMORY_LENGTH),end="\r")
     reading_time = time.time() - start_time
     print("Readed {:.2f} KB in {:.2f}s ({:.2f} KB/s)".format(MEMORY_LENGTH/1024, reading_time, (MEMORY_LENGTH/1024)/reading_time))
 
@@ -122,10 +123,12 @@ if __name__ == '__main__':
     i = 0
     start_time = time.time()
     while i < MEMORY_LENGTH:
-        d = ser.read(ser.in_waiting)
-        i = i + len(d)
-        mem.extend(d)
-        print("Reading: {:.2f}%".format(100*i/MEMORY_LENGTH),end="\r")
+        if ser.in_waiting:
+            d = ser.read(ser.in_waiting)
+            i = i + len(d)
+            mem.extend(d)
+            print("Reading: {:.2f}%".format(100*i/MEMORY_LENGTH),end="\r")
+    
     reading_time = time.time() - start_time
     print("Readed {:.2f} KB in {:.2f}s ({:.2f} KB/s)".format(MEMORY_LENGTH/1024, reading_time, (MEMORY_LENGTH/1024)/reading_time))
 
@@ -172,10 +175,11 @@ if __name__ == '__main__':
     i = 0
     start_time = time.time()
     while i < MEMORY_LENGTH:
-        d = ser.read(ser.in_waiting)
-        i = i + len(d)
-        mem.extend(d)
-        print("Reading: {:.2f}%".format(100*i/MEMORY_LENGTH),end="\r")
+        if ser.in_waiting:
+            d = ser.read(ser.in_waiting)
+            i = i + len(d)
+            mem.extend(d)
+            print("Reading: {:.2f}%".format(100*i/MEMORY_LENGTH),end="\r")
     reading_time = time.time() - start_time
     print("Readed {:.2f} KB in {:.2f}s ({:.2f} KB/s)".format(MEMORY_LENGTH/1024, reading_time, (MEMORY_LENGTH/1024)/reading_time))
 
